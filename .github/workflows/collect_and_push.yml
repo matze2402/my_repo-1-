@@ -1,0 +1,39 @@
+name: Move Folder from First Repo to Second Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  move-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Second Repo
+        uses: actions/checkout@v2
+        with:
+          repository: matze2402/my_repo-1-
+          ref: main
+
+      - name: Checkout Third Repo
+        uses: actions/checkout@v2
+        with:
+          repository: matze240/other_repo
+          ref: main
+
+      - name: Move Folder
+        run: |
+          mv files data
+
+      - name: Commit Changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Move folder from third repo"
+      
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.my_Token }}
