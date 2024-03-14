@@ -31,7 +31,7 @@ jobs:
 
     - name: Move Folder
       run: |
-        mv ./files ../other_repo/
+        mv ./main/files ../other_repo/
         cd ../my_repo-1-/
         git checkout -b new_Branch # Change this to the desired branch name
         git add .
