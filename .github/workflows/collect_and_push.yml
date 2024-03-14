@@ -1,31 +1,42 @@
-name: Move Folder from Second Repo
+name: Move Folder from First Repo to Second Repo
 
 on:
   push:
     branches:
-      - main  # Adjust branch name if needed
+      - main
 
 jobs:
   move-folder:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Second Repo
+        uses: actions/checkout@v2
+        with:
+          repository: matze2402/my_repo-1-
+          ref: main
 
-    - name: Merge Second Repo
-      run: |
-        git remote add second_repo https://github.com/matze240/other_repo.git
-        git config --global user.email "you@example.com"
-        git config --global user.name "matze2402"
-        git fetch second_repo
-        git checkout second_repo/main -- files/
-        git push origin main
+      - name: Checkout Third Repo
+        uses: actions/checkout@v2
+        with:
+          repository: matze240/other_repo
+          ref: main
 
-    - name: Move Folder to Another Branch
-      run: |
-       git checkout -b new_Branch
-       git mv files/* .
-       git commit -am "Move folder contents to new branch"
-       git pull origin new_Branch --rebase  # Pull remote changes into your local branch
-       git push origin new_Branch
+      - name: Move Folder
+        run: |
+          mv files data
+
+      - name: Commit Changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "matze2402"
+          git add .
+          git commit -m "Move folder from third repo"
+
+      - name: Pull Changes from Second Repo
+        run: git pull origin main
+      
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_TOKEN }}
