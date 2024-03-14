@@ -25,7 +25,7 @@ jobs:
     - name: Move Folder to Another Branch
       run: |
        git checkout -b new_Branch
-       cd ./matze240/other_repo
+       cd other_repo
        git mv files/* .
        git commit -am "Move folder contents to new branch"
        git pull origin new_Branch --rebase  # Pull remote changes into your local branch
