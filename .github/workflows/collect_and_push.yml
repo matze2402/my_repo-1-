@@ -24,7 +24,6 @@ jobs:
 
     - name: Move Folder to Another Branch
       run: |
-        #git checkout -b new_Branch
         git merge --no-ff --no-commit main
         git reset HEAD collect_and_push.yml
         git checkout -- collect_and_push.yml
