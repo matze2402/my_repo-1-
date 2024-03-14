@@ -27,6 +27,8 @@ jobs:
     - name: Move Folder
       run: |
         mv ./data ../other_repo/
+        git config --global user.email "you@example.com"
+        git config --global user.name "matze2402"
         cd ../my_repo-1-/
         git checkout -b new-branch-name  # Change this to the desired branch name
         git add .
