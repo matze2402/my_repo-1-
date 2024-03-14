@@ -1,4 +1,4 @@
-name: Move Folders and Files
+name: Move Data and Files
 
 on:
   push:
@@ -6,33 +6,46 @@ on:
       - main
 
 jobs:
-  move_folders_and_files:
+  move_folders:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Clone Other Repository
-      uses: actions/checkout@v2
-      with:
-        repository: matze240/Other_repo
-        ref: main
+      - name: Checkout main branch
+        uses: actions/checkout@v2
 
-    - name: Fetch Files Folder
-      run: |
-        mkdir -p external_files
-        cp -r files external_files
+      - name: Clone 'other_repo'
+        run: git clone https://github.com/matze240/other_repo.git
+        # Replace 'username' with the owner of the repository
 
-    - name: Checkout Main Branch
-      uses: actions/checkout@v2
-      with:
-        ref: main
+      - name: Copy 'data' folder
+        run: cp -r data other_repo/
 
-    - name: Move Data Folder to New Branch
-      run: |
-        git checkout -b new_Branch
-        mv ./new_Branch/data .
+      - name: Commit changes in 'other_repo'
+        run: |
+          cd other_repo
+          git config --local user.email "action@github.com"
+          git config --local user.name "matze240"
+          git add .
+          git commit -m "Added 'data' folder from main branch"
+      
+      - name: Push changes to 'other_repo'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.OTHER_TOKEN }}
+          branch: main  # Or specify a different branch if needed
 
-    - name: Commit and Push Changes
-      run: |
-        git add .
-        git commit -m "Move data folder to new_Branch and add files folder"
-        git push origin new_Branch
+      - name: Checkout new_Branch
+        run: git checkout new_Branch
+
+      - name: Copy 'files' folder from 'other_repo'
+        run: cp -r other_repo/files .
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Moved 'data' folder to other_Branch and included 'files' folder from other_repo"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_TOKEN }}
