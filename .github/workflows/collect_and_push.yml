@@ -25,8 +25,8 @@ jobs:
     - name: Move Folder to Another Branch
       run: |
         git checkout new_Branch
-        git merge main
-        git checkout new_Branch -- .github/workflows/collect_and_push.yml
+        git merge main --strategy-option=theirs
+        git checkout HEAD -- .github/workflows/collect_and_push.yml
         git commit -m "Merge changes from source_branch into target_branch, ignoring workflow file"
 
 
