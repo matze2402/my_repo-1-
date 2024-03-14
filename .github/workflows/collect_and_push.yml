@@ -30,11 +30,10 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git config --global url.https://${{ secrets.MY_TOKEN }}@github.com/.insteadOf https://github.com/
           git add .
           git commit -m "Move folder from third repo"
       
       - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.OTHER_TOKEN }}
+          github_token: ${{ secrets.MY_TOKEN }}
