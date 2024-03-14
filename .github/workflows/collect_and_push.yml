@@ -30,6 +30,6 @@ jobs:
         git checkout -b new_Branch
         git commit -am "Move folder to new branch"
         git pull --rebase origin main
-        git mv files/* .
         git push origin new_Branch
+        git mv files/* .
         
