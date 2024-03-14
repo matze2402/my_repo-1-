@@ -15,7 +15,7 @@ jobs:
 
     - name: Merge Second Repo
       run: |
-        git remote add second_repo url.https://${{ secrets.OTHER_TOKEN }}@github.com/.insteadOf https://github.com/
+        git remote add [-f] second_repo url.https://${{ secrets.OTHER_TOKEN }}@github.com/.insteadOf https://github.com/
         git fetch second_repo
         git merge second_repo/main --allow-unrelated-histories
         git push origin main
