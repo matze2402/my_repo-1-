@@ -28,8 +28,8 @@ jobs:
         git merge --no-commit main
         git checkout HEAD -- ./.github/workflows/collect_and_push.yml
         git commit -am "Move folder to new branch"
-        git pull --rebase
-        git mv files/* .
         git pull origin new_Branch --rebase
+        git mv files/* .
+        #git pull origin new_Branch --rebase
         git push origin new_Branch
         
