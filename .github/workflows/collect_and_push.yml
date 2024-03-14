@@ -22,9 +22,9 @@ jobs:
         git checkout second_repo/main -- files/
         git push origin main
 
-    #- name: Move Folder to Another Branch
-      #run: |
-        #git checkout -b new_Branch
-        #git mv <folder_name> <destination_path>
-        #git commit -am "Move folder to new branch"
-        #git push origin <new_branch_name>
+    - name: Move Folder to Another Branch
+      run: |
+        git checkout -b new_Branch
+        git mv files ./new_Branch
+        git commit -am "Move folder to new branch"
+        git push origin new_Branch
