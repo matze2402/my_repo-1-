@@ -32,6 +32,9 @@ jobs:
           git config --global user.name "GitHub Actions"
           git add .
           git commit -m "Move folder from third repo"
+
+      - name: Pull Changes from Second Repo
+        run: git pull origin main
       
       - name: Push Changes
         uses: ad-m/github-push-action@master
