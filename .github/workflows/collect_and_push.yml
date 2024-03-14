@@ -35,7 +35,7 @@ jobs:
           branch: main  # Or specify a different branch if needed
 
       - name: Checkout new_Branch
-        run: git checkout new_Branch
+        run: git checkout -b new_Branch
 
       - name: Copy 'files' folder from 'other_repo'
         run: cp -r other_repo/files .
