@@ -27,7 +27,7 @@ jobs:
        git checkout -b new_Branch
        git mv files/* .
        git commit -am "Move folder contents to new branch"
-       git pull origin new_Branch --no-rebase  # Pull remote changes into your local branch
+       git pull origin new_Branch --rebase  # Pull remote changes into your local branch
        git push origin new_Branch
         
         
