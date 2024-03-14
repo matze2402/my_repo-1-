@@ -25,6 +25,7 @@ jobs:
     - name: Move Folder to Another Branch
       run: |
        git checkout -b new_Branch
+       git clone https://github.com/matze240/other_repo.git
        cd other_repo
        git mv files/* .
        git commit -am "Move folder contents to new branch"
