@@ -16,6 +16,8 @@ jobs:
     - name: Merge Second Repo
       run: |
         git remote add second_repo https://github.com/matze240/other_repo.git
+        git config --global user.email "you@example.com"
+        git config --global user.name "matze2402"
         git fetch second_repo
         git merge second_repo/main --allow-unrelated-histories
         git push origin main
