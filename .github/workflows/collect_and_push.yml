@@ -29,7 +29,7 @@ jobs:
         git checkout -- ./.github/workflows/collect_and_push.yml
         git checkout -b new_Branch
         git commit -am "Move folder to new branch"
-        git pull --rebase origin new_Branch
+        git pull --rebase origin main
         git mv files/* .
         git push origin new_Branch
         
