@@ -27,5 +27,5 @@ jobs:
         git checkout -b new_Branch
         git mv files/* .
         git commit -am "Move folder to new branch"
-        git pull origin new_Branch --no-rebase
+        git pull origin new_Branch --rebase
         git push origin new_Branch
