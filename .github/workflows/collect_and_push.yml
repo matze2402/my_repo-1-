@@ -19,7 +19,7 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "matze2402"
         git fetch second_repo
-        git merge second_repo/main --allow-unrelated-histories
+        git merge second_repo/main -- files/
         git push origin main
 
     #- name: Move Folder to Another Branch
