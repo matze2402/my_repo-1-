@@ -1,29 +1,31 @@
-name: Move Folder to Another Branch
+name: Move Folder from Second Repo
 
 on:
   push:
     branches:
-      - main
+      - main  # Adjust branch name if needed
 
 jobs:
-  move_folder:
+  move-folder:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout First Repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Checkout Second Repository
-        run: git clone https://github.com/matze240/other_repo.git second_repository
+    - name: Merge Second Repo
+      run: |
+        git remote add second_repo https://github.com/matze240/other_repo.git
+        git config --global user.email "you@example.com"
+        git config --global user.name "matze2402"
+        git fetch second_repo
+        git checkout second_repo/main -- files/
+        git push origin main
 
-      - name: Move Folder and Ignore Workflow File
-        run: |
-          cd second_repository
-          git config user.email "your_email@example.com"
-          git config user.name "matze2402"
-          git checkout -b new_branch
-          git mv files ./new_Branch
-          git checkout main -- .github/workflows/collect_and_push.yml
-          git add .
-          git commit -m "Move folder to new branch, ignoring workflow file"
-          git push origin new_branch
+    - name: Move Folder to Another Branch
+      run: |
+       git checkout -b new_Branch
+       git mv files/* .
+       git commit -am "Move folder contents to new branch"
+       git pull origin new_Branch --rebase  # Pull remote changes into your local branch
+       git push origin new_Branch
