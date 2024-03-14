@@ -19,7 +19,7 @@ jobs:
     - name: Clone Second Repository
       run: |
         git clone --filter=blob:none --no-checkout https://github.com/matze240/other_repo.git
-        cd ./other_repo/main
+        cd main
         git config core.sparseCheckout true
         echo "./main/files/*" >> .git/info/sparse-checkout
         git checkout
