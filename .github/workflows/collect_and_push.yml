@@ -17,12 +17,7 @@ jobs:
         ref: main
 
     - name: Clone Second Repository
-      run: |
-        git clone --filter=blob:none --no-checkout https://github.com/matze240/other_repo.git
-        cd other_repo
-        git config core.sparseCheckout true
-        echo "./files/*" >> .git/info/sparse-checkout
-        git checkout
+      run: git clone --depth 1 https://github.com/matze240/other_repo.git
 
     - name: Fetch Contents from First Repository
       run: |
@@ -31,9 +26,9 @@ jobs:
 
     - name: Move Folder
       run: |
-        mv ./files ../my_repo-1-/
+        mv ./data ../my_repo-1-/
         cd ../my_repo-1-/
-        git checkout -b new_Branch # Change this to the desired branch name
+        git checkout -b new-branch-name  # Change this to the desired branch name
         git add .
         git commit -m "Move folder from main branch"
         git push origin new_Branch
