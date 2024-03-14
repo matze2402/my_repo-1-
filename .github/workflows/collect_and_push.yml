@@ -43,6 +43,8 @@ jobs:
       - name: Commit changes
         run: |
           git add .
+          git config --global user.email "you@example.com"
+          git config --global user.name "Matze2402"
           git commit -m "Moved 'data' folder to other_Branch and included 'files' folder from other_repo"
 
       - name: Push changes
