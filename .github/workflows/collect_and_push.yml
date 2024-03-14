@@ -3,25 +3,40 @@ name: Move Folder to Another Branch
 on:
   push:
     branches:
-      - main
+      - main  # Change this to the branch you want to trigger the workflow on in the first repository
 
 jobs:
   move_folder:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout First Repository
-        uses: actions/checkout@v2
+    - name: Checkout First Repository
+      uses: actions/checkout@v2
+      with:
+        repository: matze2402/my_repo-1-
+        ref: main
 
-      - name: Checkout Second Repository
-        run: git clone https://github.com/matze240/other_repo.git second_repository
+    - name: Clone Second Repository
+      run: |
+        git clone --filter=blob:none --no-checkout https://github.com/matze240/other_repo.git
+        cd ./other_repo/main
+        git config core.sparseCheckout true
+        echo "./main/files/*" >> .git/info/sparse-checkout
+        git checkout
 
-      - name: Move Folder and Ignore Workflow File
-        run: |
-          cd second_repository
-          git config user.email "your_email@example.com"
-          git config user.name "matze2402"
-          git checkout -b new_branch
-          git mv files/* .
-          git commit -m "Move folder to new branch, ignoring workflow file"
-          git push origin new_branch
+    - name: Fetch Contents from First Repository
+      run: |
+        cd other_repo
+        git fetch origin main
+
+    - name: Move Folder
+      run: |
+        mv ./main/data ../my_repo-1-/
+        cd ../my_repo-1-/
+        git checkout -b new_Branch # Change this to the desired branch name
+        git add .
+        git commit -m "Move folder from main branch"
+        git push origin new_Branch
+
+    - name: Cleanup
+      run: rm -rf second-repo
