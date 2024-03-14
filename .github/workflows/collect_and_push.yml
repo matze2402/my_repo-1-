@@ -1,39 +1,38 @@
-name: Move Folder to Another Branch
+name: Move Folders and Files
 
 on:
   push:
     branches:
-      - main  # Change this to the branch you want to trigger the workflow on in the first repository
+      - main
 
 jobs:
-  move_folder:
+  move_folders_and_files:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout First Repository
+    - name: Clone Other Repository
       uses: actions/checkout@v2
       with:
-        repository: matze2402/my_repo-1-
+        repository: matze240/Other_repo
         ref: main
 
-    - name: Clone Second Repository
-      run: git clone --depth 1 https://github.com/matze240/other_repo.git
-
-    - name: Fetch Contents from First Repository
+    - name: Fetch Files Folder
       run: |
-        cd other_repo
-        git fetch origin main
+        mkdir -p external_files
+        cp -r files external_files
 
-    - name: Move Folder
+    - name: Checkout Main Branch
+      uses: actions/checkout@v2
+      with:
+        ref: main
+
+    - name: Move Data Folder to New Branch
       run: |
-        mv ./data ../other_repo/
-        git config --global user.email "you@example.com"
-        git config --global user.name "matze2402"
-        cd ../my_repo-1-/
-        git checkout -b new-branch-name  # Change this to the desired branch name
+        git checkout -b new_Branch
+        mv main/data .
+
+    - name: Commit and Push Changes
+      run: |
         git add .
-        git commit -m "Move folder from main branch"
+        git commit -m "Move data folder to new_Branch and add files folder"
         git push origin new_Branch
-
-    - name: Cleanup
-      run: rm -rf second-repo
