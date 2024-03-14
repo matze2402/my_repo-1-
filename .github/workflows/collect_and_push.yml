@@ -25,7 +25,7 @@ jobs:
     - name: Move Folder to Another Branch
       run: |
         git checkout -b new_Branch
-        git mv files ./new_Branch/other_data
+        git mv ./files ./new_Branch/other_data
         git commit -am "Move folder to new branch"
         git pull origin new_Branch --rebase
         git push origin new_Branch
