@@ -25,7 +25,8 @@ jobs:
     - name: Move Folder to Another Branch
       run: |
         git checkout -b new_Branch
-        git mv files/* . 
+        git mv files/* .
+        git checkout HEAD -- collect_and_push.yml
         git commit -am "Move folder to new branch"
         git pull origin new_Branch --rebase
         git push origin new_Branch
