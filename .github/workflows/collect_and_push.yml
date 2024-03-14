@@ -28,6 +28,6 @@ jobs:
         git mv files/* .
         git commit -am "Move folder to new branch"
         git pull origin new_Branch --rebase
-        git checkout HEAD -- collect_and_push.yml
+        git rebase --skip
         git push origin new_Branch
         
