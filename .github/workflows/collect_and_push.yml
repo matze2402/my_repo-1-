@@ -26,7 +26,7 @@ jobs:
       run: |
         git checkout -b new_Branch
         git merge --no-commit main
-        git checkout HEAD -- collect_and_push.yml
+        git checkout HEAD -- ./main/.github/workflows/collect_and_push.yml
         git commit -am "Move folder to new branch"
         git mv files/* .
         git pull origin new_Branch --rebase
